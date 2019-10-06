@@ -1,0 +1,3 @@
+Lock files are used to prevent two or more processes from using the same data. 
+
+When apt or apt-commands are run, they create lock files in a few places.

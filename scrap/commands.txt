@@ -1,0 +1,224 @@
+#Distributions:         #Website:               #Comments:
+Arch                    archlinux.org      	For those who fear not the command line
+CentOS                  centos.org              Free analog of Red Hat Enterprise
+CoreOS                  coreos.com         	Containers, containers, everywhere
+Debian                  debian.org              Free as in freedom, most GNUish distro 
+Fedora                  fedoraproject.org	Test bed for Red Hat Linux
+Kali                    kali.org		For penetration testers
+Linux Mint              linuxmint.com 		Ubuntu-based, desktop-friendly
+openSUSE                opensuse.org		Free analog of SUSE Linux Enterprise
+openWRT                 openwrt.org		Linux for   routers and embedded devices
+Oracle Linux            oracle.com		Oracle-Supported version of RHEL
+RancherOS               rancher.com		20MiB,   everything in containers
+Red Hat Enterprise      redhat.com		Reliable, slow-changing, commercial
+Slackware               slackware.com		Grizzled, long-surviving distro
+SUSE  Linux Enterprise  suse.org		Strong in Europe, multilingual
+Ubuntu                  ubuntu.com		Cleaned-up version Debian
+
+
+
+#Get Information OS Release
+$ cat /lib/os-release 
+
+
+# Get System Identification
+$ uname -a
+$ uname -m
+
+# .deb packages downloaded in apt-get are located:
+/var/cache/apt/archives/
+
+
+-----
+apt
+-----
+# Install the GPG key:
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+
+# Ensure apt is set up work with https source:
+sudo apt-get install apt-transport-https
+
+# Select channel to use
+## Stable:
+$ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d 
+/sublime-text.list
+
+
+
+
+
+# Tarball - Extracting an archive
+$ tar -xzvf file.tar.gz
+$ tar -xjvf file.tar.bz2
+
+* -x: Extract files from an archive
+* -t: List the contents of an archive
+* -v: Verbose output
+* -f file.tar.gz: Use archive file
+* -C DIR: Change to DIR before performing any operations
+* --exclude: Exclude files matching PATTERN/DIR/FILENAME
+
+# Create tarball file - Compress an entire directory
+$ -tar -czvf file.tar.gz /home/view/data/
+
+* -c: Create a new archive
+* -v: Verbose output
+* -f  File.tar.gz: Use archive file
+* -z: Filter the archive through gzip
+* -j: Filter the archive through bzip2
+
+
+# Unzip img.xz
+$ unxz ubuntu-core-18-armhf+raspi3.img.xz 
+$ unxz --keep kali-1.1.0-rpi2.img.xz
+
+# NOTATION AND TYPOGRAHICAL CONVENTIONS
+
+# Grep / Find text string in file
+$ grep Benny test-data.txt
+
+# Become root
+$ sudo su - root
+
+# Change the root's password
+$ passwd
+
+# List installed packages on Debian & Ubuntu
+$ dpkg -l
+
+
+
+# Shell-style globbing chars for pattern matching.
+* A star(*) matches zero or more characters.
+* A question mark(?) matches on char.
+* A tilde or "twiddle" (~) means the home directory of the current user.
+* ~ user means the home directory of user.
+
+# Startup-script dirs: 
+/etc/rc0.d & /etc/rc1.d 
+# Shorthand pattern: 
+/etc/rc*.d
+
+
+# UNITS
+
+# Unit decoding examples:
+1kB file			A file that contains 1000 bytes
+4KiB SSD pages 			SSD pages that contain 4,096 bytes 
+8KB of memmory			Not used in this book..
+100MB file size limit		Nominally 10^8 bytes; in context, ambiguous
+100MB disk partition 		Nominally 108 bytes; in context probably 99,999,744 bytes*
+1GBiB of RAM			1,073,741,824, bytes of memory
+1 Gb/s Ethernet			A network that transmits 1,000,000,000 bits per second
+6TB hard disk 			A hard disk that stores about 6,000,000,000,000 bytes
+
+
+# MAN PAGES AND OTHER ON-LINE DOCUMENTATION
+
+The manual pages usually called "man pages" because theare read with the man command,
+Constitute the traditionally "on-line" documentation. 
+(Of course, these days all documentation is on-line in som form or another)
+Program-specific man pages come along for the ride when you install new software packges.
+
+
+# Sections of the man pages
+
+# Section     # Contents:
+1		User-level commands an applications
+2		System calls and kernel error codes
+3		Libreary calls
+4 		Device drivers and network protocols
+5		Standard file formats
+6		Games and demonstrations
+7 		Miscellaneous files and documents
+8		System administration commands
+9		Obscure kernel specs and interfaces
+
+# man: 
+## read man pages:
+man, title formats a specific manual page and seds it to your terminal through
+more,less or whatever program is specified in your PAGER enviroment variable,
+title is usually [command], [device], [filename], or [name] of a library routine. 
+The sec-tions if the manual are searched in roughly numeric order, 
+although sections that describe commands are usually searched first.
+
+The Form man section title gets you a man pagr from a particular section. Thus, on
+most systems, man sync gets you the man page for the sync command, 
+and man 2 sync gets you the man page for the sync system call.
+
+$ man -k keyword or apropos keyword prints a list of man pages that have keyword in their
+on line synopses. For example:
+
+$ man-k translate
+objcopy (1) 		-copy paste and translate object files
+dcgettext(3)		-translate message
+tr(1)			-translate or delete characters
+snnmptranslate(1)	-translate SNMP OID values into useful information
+tr(1p)			-translate characters
+
+
+*man* maintains a cache of formatted pagges in /var/cache/man or /usr/share/man
+if the appropriate directories are writable; however this is a security risk.
+Most systems preformat the man pages once at installation time (see catman) or not at all.
+
+The *man* command can search several man page repositories to find the manual pages you request.
+On Linux systems, you can find out the current default search path with *manpath* command. 
+This path (from Ubuntu) is typical:
+
+$ manpath
+/usr/local/man:/usr/local/share/man:/usr/share/man
+
+
+If necessary, you can set your MANPATH enviroment variable to override the default path:
+$ export MANPATH=/home/share/localman:/usr/share/man
+
+
+Some systems let you set a ustom system-wide default search path for man pages,
+which can be useful if you need to maintain a parallel tree of man pages such as 
+those generated by OpenPKG. To distribute the local documentation in the form of man
+pages, however, it is simpler to use your system's standard packaging mechanism
+and to put man pages in the standard man directories.
+
+
+#RFC Publications
+Requests for Comments documents desccribve the protocls used on
+the Internet. Most of these are  relatively detailed and technical, 
+but some are written as overviews. The phrase "referemce implementation" applied
+to the software ususally translates to "implemented by a trusted source according to the RFC specification"
+
+RFCs are absolutely authorative, and many are quite useful for system admistrators.
+ 
+
+## Resources for keeping up to date
+
+WEBSITE:		DESCRIPTION:
+darkreading.com		Security news, trends and discussions
+linux.com		A Linux founda tion site; forum good for new users
+linuxfoundation.org	Nonprofit fostering OSS, employer of Linus Torvalds
+lwn.net			High-Quality timely articles on Linux and OSS
+lxer.com		Linux new aggeregator
+
+
+## Task-specific forums and reference sites
+
+WEBSITE:		Description:
+wiki.archlinux.org	Articles and guides for Arch Linux; many are more general
+askubuntu.com		Q&A for ubuntu users and developers
+digitalocean.com	Tutorials on many OSS, development, and sysadmin topics
+kernel.org		Offical Linux kernel site
+serverfault.com		Collaboratively edited database of sysadmin questions
+serverforhackers.com	High-quality videos, forums, and articles on administration
+
+
+
+
+--------------------
+FILSYSTEM:
+--------------------
+/boot/boot.config
+--------------------
+ignore_lcd=1
+hdmi_force_hitplug=1
+
+
+
