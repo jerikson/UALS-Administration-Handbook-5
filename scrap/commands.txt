@@ -210,6 +210,148 @@ serverfault.com		Collaboratively edited database of sysadmin questions
 serverforhackers.com	High-quality videos, forums, and articles on administration
 
 
+# WAYS  TO  FIND AND INSTALL SOFTWARE
+Modern operating systems divide  their contents into packages that can be installed
+independently of one another. The default installation includes a range of starter
+packages that you can expand and contract according  to your needs. When adding 
+software, don tiyr security hat and remember that additional software created 
+additional attack surface. Only install what's necessary.
+
+Add-on software is often provided in the form of precompiled packages as well,
+although the degree to which this is a mainstream approach varies widely among
+systems. Most software is developed by indepedent groups that release the 
+software in the form of source code. Package repositories then pick up the source code,
+compile it appropriately for  the conventions in use on the systems they serve, and
+package the resulting binaries. It's usually easier to install a system-specific binary
+than to fetch and compile the original source code. However, packages are sometimes
+a release or two behind the current version.
+
+Our example systems provide excellent packkage management systems that include
+tools for accessing and searching hosted software repositories. Distributors 
+agrgressively maintain these repositories on behalf of the community, to facilitate
+patching and software updates.
+
+When the packaged format is insufficient, administrators must install software
+the old-fashioned way: by downloading a tar archive of the source code and manually
+configuring, compiling and installing it.p Depending on the softare and the operating
+system, this process can range from trivial to nightmarish.
+
+## Determining if the software is already installed
+For a variety of reasons, it can be a bit tricky to determine which package
+contains the software you actually need. Rather than starting at the package
+level, it's easier to use the shell's *$ which* command to find out  the if 
+a relevant binary is already in your search path. For example, the following
+command reveals that the GNU C compiler has already been installed on this machine:
+
+$ which gcc
+/usr/bin/gcc
+
+If which can't find the command you're looking for, try *$ whereis*; it searches
+a broader range of system directories and is independent of your shell's path.
+
+Another alternative is the incredibly useful locate command, which consults a pre-
+compiled index of the filesystem to locate filenames that match a particular pattern.
+
+*$ locate* can find any type of file; it is not specific to commands or packages.
+For example, if you wheren' sure where  to find the signal.h inclkude file, you 
+could try:
+
+$ locate signal.h
+/usr/incude/machine/signal.h
+/usr/include/arm-linux-gnueabihf/asm/signal.h
+/usr/include/arm-linux-gnueabihf/sys/signal.h
+/usr/include/asm-generic/signal.h
+/usr/include/linux/signal.h
+...
+
+locate's database is updated periodically by the *updatedb* command
+(in freeBSD locate.updatedb), which runs periodically iyt of *cron*.
+Therefore the results of a *locate* don't always reflect recent changes
+of the filesystem.
+
+If you know the name of the package you are lokkinng for you can also
+use your system's packaging utilities to check directly for the 
+package's precense. For example on a Red Hat system the following
+command checks for the precense (and installed version) of the python
+interpreter:
+
+$ rpm -q python
+python-2.7.5-18.e17_1.1.x86_64
+
+You can also find out which package a particular file belongs to:
+
+$ rpm -qf /etc/httpd
+httpd-2.4.6-31.e17.centos.x86x_64
+
+$ pkg which /usr/local/sbin/httpd
+/usr/local/sbin/httpd/ was installed by package apache24-2.4.12
+
+$ dpkg-query -S /etc/apache2
+apache2: /etc/apache2
+
+
+## Adding new software
+If you need to install additional software, you first need to determine
+the canonical name of the relevant software package. For example you'd 
+need to translate "i want to install locate" to "I need to install
+the *mlocate* package," or translate "i need *named* to "I have to install
+BIND". A variety of system-specific indexes on  the web can help with this,
+but Googlew is usually just as effective. For example a search for
+"locate command" takes you  directly to several relevant discussions.
+
+The following examples show the installation of the *tcpdump* command
+on each of our example systems. *tcpdump* is a packet capture tool that
+lets you view the raw packets being sent to and from the system on the 
+network.
+
+Debian and Ubuntu use APT, the Debian Advanced Package Tool:
+ubuntu# *$ sudo apt-get install tcpdump*
+
+The Red Hat and CentOS version is:
+redhat# *$ sudo yum install tcpdump*
+
+The package manager for FreeBSD is *pkg*.
+freebsd# *sudo pkg install -y  tcpdump*
+
+
+## Building software from source code
+As an illustration, here's how you build a version of *tcpdump* from
+the source code.
+
+The first chore is to identify the code. Software maintainers sometimes keep
+an index of releases  on the project's web site that are downloadable as tarballs.
+For open source projects, you're most likely to find code in a Git repository.
+
+The *tcpdump* source is kept on Github. Clone the repository in the /tmp/ dir,
+create a branch of the tagged version you want to build, then
+unpack, configure, build, install it.
+
+$ cd /tmp
+$ git clone https://github.com/the-tcpdump-group/tcpdump.git
+"<status mmessages as repository is cloned>"
+
+$ cd tcpdump
+
+$ git checkout tags/tcpdump-4.7.4 -b tcpdump-4.7.4
+"Switched to a new branch 'tcpdump-4.7.4'"
+
+$ ./configure
+"checking build system type... x86_64-unknown-linux-gnu"
+"..."
+
+$ make
+"<several pages of compilation output>"
+
+sudo make install
+"<files are moved in to place>"
+
+This *configure/make/make install* sequence is common to most software written
+iun C and works on all UNIX and Linux systems. It's always good idcea to check
+the package's *INSTALL* or *README* file for specifics. You must have the developement
+enviroment and any package-specific prerequisites installed. (in the case of tcpdump, libpcap
+and its libraries are prerequisites.)
+
+
 
 
 --------------------
@@ -219,6 +361,14 @@ FILSYSTEM:
 --------------------
 ignore_lcd=1
 hdmi_force_hitplug=1
+
+
+
+
+--------------------
+QUESTIONS:
+--------------------
+* Does the VIM option "edit anyway" affect the file if it is saved?
 
 
 
