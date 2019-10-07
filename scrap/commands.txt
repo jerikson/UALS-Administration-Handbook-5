@@ -351,6 +351,86 @@ the package's *INSTALL* or *README* file for specifics. You must have the develo
 enviroment and any package-specific prerequisites installed. (in the case of tcpdump, libpcap
 and its libraries are prerequisites.)
 
+You'll often need to tweak the build configuration, so use ./configure --help to see
+the options available for each particular package. Another useful configure option
+is --prefix=directory, which let's yopu compile the software for installation somwhere other 
+than /usr/local, which is usually the default.
+
+
+## Installing from a web script
+Cross-platform software bundles increasingly offer an expedited installation process that's
+driven by a shell script you download from the web with *curl*, *fetch* or *wget*.
+For example,to set up a machine as a salt client, you can run the following commands:
+
+$ curl -o /tmp/saltboot -sL https://bootstrap.saltstack.com
+$ sudo  sh /tmp/saltboot
+
+The bootstrap script ionvestigates the local enviroment, then downloads, installs annd configures
+an appropriate version of the software. THis type of installation is particularly common in cases
+where the process itself is somewhat complex, but the vendor is  highly motivated to make things
+easy for thge users. (another good example is RVM),
+
+
+
+The shell accepts script text on its standard input, and this feature enables tidy,
+one-line  installation procedures  such as the following:
+
+$ curl -L https://dadvendor.com | sudo sh
+
+However  there's a potential issue with this construction in that the root shell
+still runs even if curl outputs a plausible failure mode. More to the point,
+piping the output of curl to a shell has entered the collective sysadmin unconsious
+as a prototypical rookie blunder, so if you must do it, at least keep it on the sly.
+
+
+
+# SPECIALIZATION AND ADJACENT DICIPLINES
+
+ROLES:
+
+DevOps
+Site reliability engineers
+Security operations engineers
+Network Administrators
+Database Administrators
+Network operations center (NOC) engineers
+Data center technicians
+Architects
+
+
+# Booting and System Management Daemons
+"Booting" is the standard term for "starting up a compuiter." It's a shortened form
+of the word "bootstrapping," which derrives from the notion that the computer has to
+"pull itself up by its own bootstraps".
+
+The boot process concists of a few broadly defined tasks:
+* Finding, loading and running bootstrapping code
+* Finding, loading and running the OS kernel
+* Running startup scripts and system daemons
+* Maintaining process hygiene and managing system state transitions
+
+The activities included in that last bullet point continue as long as the system
+remains up, so the line between bootstrapping and normal operation is inherently a bit
+blurry.
+
+## BOOT PROCESS OVERVIEW
+Startup procedures have change a lot in recent years. The advent modern (UEFI)
+BIOSs has simplified the early stages of booting , at least from a conceptual stand-point.
+In later stages, most LInux distros  now use a system manager daemon called *systemd* instead
+of the traditional UNIX *init. systemd* streamlines the boot process by adding dependency
+managementm  support for concurrennt startup process, and a comperhensive approach to logging,
+amongother features.
+
+Boot management has also changed as system have migrated into the cloud. The drift toward 
+virtualization, cloud instances, and containerization has reduced the need for administrators
+to touch physical hardware. Instead, we now have image management, APIs and control panels.
+
+During bootstrapping, the kernel is loaded into memory and begins to execute.
+A variety of initialization tasks are performed, and the system is then made available
+to users. The general overview  of this process is shown in Exhibit A.
+
+
+
 
 
 
