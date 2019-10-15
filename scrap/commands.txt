@@ -17,17 +17,26 @@ Ubuntu                  ubuntu.com		Cleaned-up version Debian
 
 
 
-#Get Information OS Release
+## Get Information OS Release
 $ cat /lib/os-release 
 
 
-# Get System Identification
+## Get System Identification
 $ uname -a
 $ uname -m
 
-# .deb packages downloaded in apt-get are located:
+## .deb packages downloaded in apt-get are located:
 /var/cache/apt/archives/
 
+## Check disk space  
+$ df -alh
+
+## Remove folder and everything it contains
+$ rm <folder> -rf
+
+* f = to ignore non-existent files, never prompt
+* r = remove directories and their contents recursively
+* v = verbose
 
 -----
 apt
@@ -43,6 +52,12 @@ sudo apt-get install apt-transport-https
 $ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d 
 /sublime-text.list
 
+
+
+
+# Grep & Highlight
+# grep --color -E *file*
+* highlight *file* | green highlight blue *file*
 
 
 
